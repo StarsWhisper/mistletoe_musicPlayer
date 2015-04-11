@@ -2,6 +2,11 @@ package com.mistletoe.musicplayer.aboutMusic;
 
 import java.util.List;
 
+import com.mistletoe.musicplayer.main.Music;
+import com.mistletoe.musicplayer.util.LrcView;
+import com.mistletoe.musicplayer.util.MusicList;
+
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -41,9 +46,9 @@ public class MusicActivity extends Activity implements SensorEventListener{
 	public static LrcView lrc_view;
 	private ImageView icon;
 	private SeekBar seekBar1;
-	private AudioManager audioManager;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	private int maxVolume;// ï¿½ï¿½ï¿½ï¿½ï¿½
-	private int currentVolume;// ï¿½ï¿½Ç°ï¿½ï¿½
+	private AudioManager audioManager;//ÒôÁ¿¹ÜÀí
+	private int maxVolume;// ×î´óÒôÁ¿
+	private int currentVolume;// µ±Ç°ÒôÁ¿
 	private SeekBar seekBarVolume;
 	private List<Music> lists;
 	private Boolean isPlaying = false;
@@ -92,8 +97,8 @@ public class MusicActivity extends Activity implements SensorEventListener{
 
 		lists = MusicList.getMusicData(this);
 		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-		maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);// ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½
+		maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 		seekBarVolume.setMax(maxVolume);
 		seekBarVolume.setProgress(currentVolume);
 		seekBarVolume.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -118,7 +123,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 						progress, AudioManager.FLAG_ALLOW_RINGER_MODES);
 			}
 		});
-		//ï¿½ç»°×´Ì¬ï¿½ï¿½ï¿½ï¿½
+		//µç»°×´Ì¬¼àÌý
 		TelephonyManager telManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		telManager.listen(new MobliePhoneStateListener(),
 				PhoneStateListener.LISTEN_CALL_STATE);
@@ -158,7 +163,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 		@Override
 		public void onCallStateChanged(int state, String incomingNumber) {
 			switch (state) {
-			case TelephonyManager.CALL_STATE_IDLE: /* ï¿½ï¿½ï¿½Îºï¿½×´Ì¬Ê± */
+			case TelephonyManager.CALL_STATE_IDLE: /* ÎÞÈÎºÎ×´Ì¬Ê± */
 				Intent intent = new Intent(MusicActivity.this,
 						MusicService.class);
 				intent.putExtra("play", "playing");
@@ -168,9 +173,9 @@ public class MusicActivity extends Activity implements SensorEventListener{
 				imageBtnPlay.setImageResource(R.drawable.pause1);
 				replaying=true;
 				break;
-			case TelephonyManager.CALL_STATE_OFFHOOK: /* ï¿½ï¿½ï¿½ï¿½ç»°Ê± */
+			case TelephonyManager.CALL_STATE_OFFHOOK: /* ½ÓÆðµç»°Ê±*/
 				
-			case TelephonyManager.CALL_STATE_RINGING: /* ï¿½ç»°ï¿½ï¿½4Ê± */
+			case TelephonyManager.CALL_STATE_RINGING: /* µç»°½øÀ´Ê± */
 				Intent intent2 = new Intent(MusicActivity.this,
 						MusicService.class);
 				intent2.putExtra("play", "pause");
@@ -279,7 +284,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if (v == imageBtnLast) {
-				// ï¿½ï¿½Ò»ï¿½ï¿½
+				//µÚÒ»Ê×
 				id = 0;
 				Music m = lists.get(0);
 				textName.setText(m.getTitle());
@@ -293,7 +298,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 				startService(intent);
 				isPlaying = true;
 			} else if (v == imageBtnRewind) {
-				// Ç°Ò»ï¿½ï¿½
+				// Ç°Ò»Ê×
 				int id=MusicService._id-1;
 				if(id>=lists.size()-1){
 					id=lists.size()-1;
@@ -312,7 +317,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 				startService(intent);
 				isPlaying = true;
 			} else if (v == imageBtnPlay) {
-				// ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½
+				// ÕýÔÚ²¥·Å
 				if (isPlaying == true) {
 					Intent intent = new Intent(MusicActivity.this,
 							MusicService.class);
@@ -332,7 +337,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 					replaying=true;
 				}
 			} else if (v == imageBtnForward) {
-				// ï¿½ï¿½Ò»ï¿½ï¿½
+				// ÏÂÒ»Ê×
 				int id=MusicService._id+1;
 				if(id>=lists.size()-1){
 					id=lists.size()-1;
@@ -351,7 +356,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 				startService(intent);
 				isPlaying = true;
 			} else if (v == imageBtnNext) {
-				// ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+				// ×îºóÒ»Ê×
 				int id=lists.size()-1;
 				Music m = lists.get(id);
 				textName.setText(m.getTitle());
@@ -366,12 +371,12 @@ public class MusicActivity extends Activity implements SensorEventListener{
 				isPlaying = true;
 			} else if (v == imageBtnLoop) {
 				if (isLoop == true) {
-					// Ë³ï¿½ò²¥·ï¿½
+					// Ë³Ðò²¥·Å
 					imageBtnLoop
 							.setBackgroundResource(R.drawable.play_loop_spec);
 					isLoop = false;
 				} else {
-					// ï¿½ï¿½ï¿½ï¿½ï¿½
+					// µ¥Çú²¥·Å
 					imageBtnLoop
 							.setBackgroundResource(R.drawable.play_loop_sel);
 					isLoop = true;
@@ -396,7 +401,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 	   
    }
 	/**
-	 * Ê±ï¿½ï¿½ï¿½Ê½×ªï¿½ï¿½
+	 * Ê±¼ä¸ñÊ½×ª»»
 	 * 
 	 * @param time
 	 * @return
@@ -410,17 +415,17 @@ public class MusicActivity extends Activity implements SensorEventListener{
 		minute %= 60;
 		return String.format("%02d:%02d", minute, second);
 	}
-	//ï¿½ï¿½fï¿½ï¿½Ó¦ Ë¦ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Í¨¹ýÖØÁ¦¸ÐÓ¦£¬µ±Ò¡»ÎÊÖ»úÊ±£¬ÇÐ»»¸èÇú
 	private static final int SHAKE_THRESHOLD = 3000;
 	private long lastUpdate=0;
 	private double last_x=0;
 	private double last_y= 4.50;
 	private double last_z=9.50;
-	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½È£ï¿½Ô½Ð¡ï¿½ï¿½Ê¾ï¿½ï¿½Ó¦Ô½ï¿½ï¿½ï¿½ï¿½
+	//Õâ¸ö¿ØÖÆ¾«¶È£¬Ô½Ð¡·´Ó¦Ô½ÁéÃô
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// TODO Auto-generated method stub
-		//ï¿½ï¿½ï¿½?×¼ï¿½È¸Ä±ï¿½
+		//´¦Àí¾«×¼¶È¸Ä±ä
 	}
 
 	@Override
@@ -429,7 +434,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 		if(event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
 			long curTime = System.currentTimeMillis();
 			
-			// Ã¿200ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½   
+			// Ã¿200ºÁÃë¼ì²âÒ»´Î   
 			if ((curTime - lastUpdate) > 100) { 
 			long diffTime = (curTime - lastUpdate);  
 			lastUpdate = curTime;   
@@ -439,7 +444,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 			Log.e("---------------", "x="+x+"   y="+y+"   z="+z);
 			float speed = (float) (Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000);   			  
 			if (speed > SHAKE_THRESHOLD) {   
-                        //ï¿½ï¿½âµ½Ò¡ï¿½Îºï¿½Ö´ï¿½ÐµÄ´ï¿½ï¿½ï¿½
+                 //¼ì²âµ½Ò¡»ÎºóÖ´ÐÐµÄ´úÂë
 				  if(MusicService.playing==true){
 					  Intent intent = new Intent(MusicActivity.this,
 								MusicService.class);

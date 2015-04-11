@@ -5,7 +5,6 @@ import java.util.List;
 import com.mistletoe.musicplayer.adapter.MusicAdapter;
 import com.mistletoe.musicplayer.main.Music;
 import com.mistletoe.musicplayer.util.MusicList;
-import com.mistletoe_musicplayer.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
 
 public class ListActivity extends Activity {
 

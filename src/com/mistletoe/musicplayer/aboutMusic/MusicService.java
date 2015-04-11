@@ -4,6 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mistletoe.musicplayer.main.Music;
+import com.mistletoe.musicplayer.util.LrcProcess;
+import com.mistletoe.musicplayer.util.LrcProcess.LrcContent;
+import com.mistletoe.musicplayer.util.LrcView;
+import com.mistletoe.musicplayer.util.MusicList;
+
+
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,7 +36,7 @@ import android.view.animation.AnimationUtils;
 public class MusicService extends Service implements Runnable {
 	private MediaPlayer player;
 	private List<Music> lists;
-	public static int _id = 1; // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	public static int _id = 1; // µ±Ç°²¥·ÅÎ»ÖÃ
 	public static Boolean isRun = true;
 	public LrcProcess mLrcProcess;
 	public LrcView mLrcView;
@@ -97,19 +104,19 @@ public class MusicService extends Service implements Runnable {
 
 	private void playMusic(int id) {
 
-		// /////////////////////// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /////////////////////// //
+		// /////////////////////// ³õÊ¼»¯¸è´ÊÅäÖÃ/////////////////////// //
 		mLrcProcess = new LrcProcess();
-		// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+		// ¶ÁÈ¡¸è´ÊÎÄ¼þ
 		mLrcProcess.readLRC(lists.get(_id).getUrl());
-		// ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½Ä¼ï¿½
+		// ´«»Ø´¦ÀíºóµÄ¸è´ÊÎÄ¼þ
 		lrcList = mLrcProcess.getLrcContent();
 		MusicActivity.lrc_view.setSentenceEntities(lrcList);
-		// ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
+		// ÇÐ»»´ø¶¯»­ÏÔÊ¾¸è´Ê
 		MusicActivity.lrc_view.setAnimation(AnimationUtils.loadAnimation(
 				MusicService.this, R.anim.alpha_z));
-		// ï¿½ï¿½ï¿½ß³ï¿½
+		// Æô¶¯Ïß³Ì
 		mHandler.post(mRunnable);
-		// /////////////////////// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /////////////////////// //
+		// ///////////////////////³õÊ¼»¯¸è´ÊÅäÖÃ/////////////////////// //
 
 		if (null != player) {
 			player.release();
@@ -149,14 +156,14 @@ public class MusicService extends Service implements Runnable {
 			@Override
 			public void onCompletion(MediaPlayer mp) {
 				// TODO Auto-generated method stub
-				// ï¿½ï¿½Ò»ï¿½ï¿½
+				//  ÏÂÒ»Ê×
 				if (MusicActivity.isLoop == true) {
 					player.reset();
 					Intent intent = new Intent("cn.com.karl.completion");
 					sendBroadcast(intent);
 					_id = _id + 1;
 					playMusic(_id);
-				} else { // ï¿½ï¿½ï¿½ï¿½ï¿½
+				} else { // µ¥Çú²¥·Å
 					player.reset();
 					Intent intent = new Intent("cn.com.karl.completion");
 					sendBroadcast(intent);
@@ -245,7 +252,7 @@ public class MusicService extends Service implements Runnable {
 	}
 
 	Handler mHandler = new Handler();
-	// ï¿½ï¿½Ê¹ï¿½ï¿½ß³ï¿½
+	// ¸è´Ê¹ö¶¯Ïß³Ì
 	Runnable mRunnable = new Runnable() {
 
 		@Override
@@ -257,23 +264,23 @@ public class MusicService extends Service implements Runnable {
 		}
 	};
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ´´½¨¶ÔÏó
 	private List<LrcContent> lrcList = new ArrayList<LrcContent>();
-	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Öµ
+	//³õÊ¼»¯¸è´Ê¼ìË÷Öµ
 	private int index = 0;
-	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½
+	//  ³õÊ¼»¯¸èÇú²¥·ÅÊ±¼äµÄ±äÁ¿
 	private int CurrentTime = 0;
-	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½
+	// ³õÊ¼»¯¸èÇú×ÜÊ±¼äµÄ±äÁ¿
 	private int CountTime = 0;
 
 	/**
-	 * ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ¸è´ÊÍ¬²½´¦ÀíÀà
 	 */
 	public int LrcIndex() {
 		if (player.isPlaying()) {
-			// ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ê±ï¿½ï¿½
+			// »ñµÃ¸èÇú²¥·ÅÔÚÄÄµÄÊ±¼ä
 			CurrentTime = player.getCurrentPosition();
-			// ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä³¤ï¿½ï¿½
+			// »ñµÃ¸èÇú×ÜÊ±¼ä³¤¶È
 			CountTime = player.getDuration();
 		}
 		if (CurrentTime < CountTime) {

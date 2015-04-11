@@ -106,7 +106,7 @@ public class LrcView extends TextView {
 						tempY, NotCurrentPaint);
 			}
 		} catch (Exception e) {
-			setText("提示：槲寄生音乐播放器未找到歌词文件...");
+			setText("...没有歌词文件...");
 		}
 	}
 

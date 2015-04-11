@@ -2,8 +2,9 @@ package com.mistletoe.musicplayer.adapter;
 
 import java.util.List;
 
+import com.mistletoe.musicplayer.aboutMusic.R;
 import com.mistletoe.musicplayer.main.Music;
-import com.mistletoe_musicplayer.R;
+
 
 import android.content.Context;
 import android.view.LayoutInflater;

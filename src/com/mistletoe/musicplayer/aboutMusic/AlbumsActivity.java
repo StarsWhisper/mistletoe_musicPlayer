@@ -2,7 +2,6 @@ package com.mistletoe.musicplayer.aboutMusic;
 
 import com.mistletoe.musicplayer.adapter.AlbumsAdapter;
 import com.mistletoe.musicplayer.util.MusicList;
-import com.mistletoe_musicplayer.R;
 
 import android.app.Activity;
 import android.content.Intent;
