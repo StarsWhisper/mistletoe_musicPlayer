@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MusicActivity extends Activity implements SensorEventListener{
@@ -60,6 +62,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 	public static Boolean isLoop=true;
 	private SensorManager sensorManager;
 	private boolean mRegisteredSensor;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -470,5 +473,7 @@ public class MusicActivity extends Activity implements SensorEventListener{
 			}
 		}
 	}
+	
+	
 
 }

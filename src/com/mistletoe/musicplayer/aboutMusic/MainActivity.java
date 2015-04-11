@@ -5,13 +5,17 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 public class MainActivity extends TabActivity {
 	
 	private TabHost mtabHost;
+	private long exitTime = 0;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,4 +70,18 @@ public class MainActivity extends TabActivity {
 //        tabHost.setCurrentTab(0);
 
     }
+    
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){   
+	        if((System.currentTimeMillis()-exitTime) > 2000){  
+	            Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();                                
+	            exitTime = System.currentTimeMillis();   
+	        } else {
+	            finish();
+	            System.exit(0);
+	        }
+	        return true;   
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 }
