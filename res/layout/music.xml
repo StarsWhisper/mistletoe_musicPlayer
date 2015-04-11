@@ -2,27 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/playback1"
     android:orientation="vertical" >
-
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        
-
         <com.mistletoe.musicplayer.util.LrcView
             android:id="@+id/LyricShow"
             android:layout_width="fill_parent"
-            android:layout_height="200dip"
+            android:layout_height="250dip"
+            android:layout_above="@+id/linearLayout2"
             android:layout_below="@+id/linearLayout1"
             android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:text="无歌曲播放"
-            android:textColor="#99ffffff"/>
-    
+            android:textColor="#99ffffff" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -107,11 +104,24 @@
                     android:id="@+id/music_seekBar"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:max="100"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip"
+                    android:progressDrawable="@drawable/progress_holo_light"
+                    android:thumb="@drawable/detail_icon_schedule_ball" />
+                <!--
+                    SeekBar
+                    android:id="@+id/music_seekBar"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
                     android:max="100"
                     android:paddingLeft="2dip"
                     android:paddingRight="2dip"
                     android:progressDrawable="@drawable/seekbar_img"
-                    android:thumb="@drawable/media_player_progress_button" />
+                    android:thumb="@drawable/media_player_progress_button"
+                -->
 
                 <TextView
                     android:id="@+id/music_end_time"
@@ -132,35 +142,47 @@
                     android:id="@+id/music_lasted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:background="#00000000"
                     android:src="@drawable/latest1" />
 
                 <ImageButton
                     android:id="@+id/music_rewind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:background="#00000000"
                     android:src="@drawable/rewind" />
 
                 <ImageButton
                     android:id="@+id/music_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:background="#00000000"
                     android:src="@drawable/play1" />
 
                 <ImageButton
                     android:id="@+id/music_foward"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:background="#00000000"
                     android:src="@drawable/foward" />
-
+
                 <ImageButton
                     android:id="@+id/music_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:focusable="false"
+                    android:background="#00000000"
                     android:src="@drawable/next1" />
+
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

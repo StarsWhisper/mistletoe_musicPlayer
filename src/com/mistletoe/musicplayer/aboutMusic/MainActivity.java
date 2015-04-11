@@ -20,13 +20,18 @@ public class MainActivity extends TabActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
         		WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.mytab);
-  
-        mtabHost=getTabHost();  
+       
+        Intent intent;  
         
-        mtabHost.addTab(mtabHost.newTabSpec("音乐").setIndicator("音乐",getResources().getDrawable(R.drawable.item01)).setContent(R.id.tab1));    
-        mtabHost.addTab(mtabHost.newTabSpec("艺术家").setIndicator("艺术家",getResources().getDrawable(R.drawable.item02)).setContent(R.id.tab2));    
-        mtabHost.addTab(mtabHost.newTabSpec("专辑").setIndicator("专辑",getResources().getDrawable(R.drawable.item03)).setContent(R.id.tab3));     
-        mtabHost.addTab(mtabHost.newTabSpec("最近播放").setIndicator("最近播放",getResources().getDrawable(R.drawable.item04)).setContent(R.id.tab4));     
+        mtabHost=getTabHost();  
+        intent = new Intent().setClass(this, ListActivity.class);
+        mtabHost.addTab(mtabHost.newTabSpec("音乐").setIndicator("音乐",getResources().getDrawable(R.drawable.item01)).setContent(R.id.tab1).setContent(intent));    
+        intent = new Intent().setClass(this, ArtistsActivity.class);
+        mtabHost.addTab(mtabHost.newTabSpec("艺术家").setIndicator("艺术家",getResources().getDrawable(R.drawable.item02)).setContent(R.id.tab2).setContent(intent));    
+        intent = new Intent().setClass(this, AlbumsActivity.class);
+        mtabHost.addTab(mtabHost.newTabSpec("专辑").setIndicator("专辑",getResources().getDrawable(R.drawable.item03)).setContent(R.id.tab3).setContent(intent));     
+        intent = new Intent().setClass(this, SongsActivity.class);
+        mtabHost.addTab(mtabHost.newTabSpec("最近播放").setIndicator("最近播放",getResources().getDrawable(R.drawable.item04)).setContent(R.id.tab4).setContent(intent));     
         mtabHost.setCurrentTab(0);
         
 //        Resources res = getResources(); 
@@ -34,7 +39,7 @@ public class MainActivity extends TabActivity {
 //        TabHost.TabSpec spec; 
 //        Intent intent;  
 //        intent = new Intent().setClass(this, ListActivity.class);
-        
+//        
 //        spec = tabHost.newTabSpec("音乐").setIndicator("音乐",
 //                          res.getDrawable(R.drawable.item))
 //                      .setContent(intent);
